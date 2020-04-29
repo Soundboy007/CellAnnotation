@@ -1,0 +1,147 @@
+Crowdsourcing application - IVC lab
+------------------------------------
+
+#worked with some img processing techniques for lifeact images
+  neither color nor edges were good enough attributes to clearly define cell boundaries
+
+#setting up the website on azure
+
+#connecting it with AMT
+  faced problems with existing SubmitTask.js (previous HITs messing with it)
+
+#Working with importing annotations
+  Tried PIL, OpenCV, and other libraries for Javascript
+  Created python file to preprocess both lifeact and annotation images
+
+#worked on image pixel manipulation techniques in javascript
+  faced cross origin errors in server side
+  fixed issues
+  changing previous annotations works
+  canvas rendering issues
+  fixed issues
+
+PENDING:
+
+-work on smoother annotation editing
+-exporting annotations
+-reproducing the annotations on the image
+-put all of this on a Qt GUI
+
+================================================================================
+
+IMPROVEMENTS:
+
+goals: get all the white pixel cordinates on the image
+       reproduce the pixels on the image using python
+
+#Security issue with the IAM authorization
+ 
+#Error uploading files
+ Issues reading uploaded files
+ files read from memory I cannot access
+ Errors resolved
+
+#Reading white pixels of the image into an array
+  Used JsFiddle code
+  white pixels have unidentified range of rgba values
+  error reading the white pixels
+  white pixels read
+
+#Importing the white pixels on the image
+  error importing the .tsv file (too large)
+  imported files
+  error copying annotations onto images
+  importing annotations successful, alignment wrong
+  alignment fixed
+
+#patching images together
+  successful on jupyter notebook
+  not working on current cwd
+
+PENDING:
+
+Making the GUI with Qt - Automation
+
+----------------------------------------------------
+Next steps: (15 or 16th), meeting 17!
+
+.gitignore
+two layer algorithm
+steps to implement application
+citations of existing websites
+
+===========================================================
+
+#Quality check
+  RetrieveAndApproveResults.js not working
+  now it works 
+
+#Implementing the two layer algorithm
+  problem with importing annotations onto original image
+  annotations import successful
+  problem with clearing existing annotations
+  annotations cleared but taking long time
+
+#Implementing large window algorithm
+  tremendous success
+  very efficient, fast and easy
+  minor technical issues due to UX decisions
+  annotations importing successfully
+
+#Creating the GUI for the entire application
+  Used PyQt5
+  issues with Conda and Python path
+  issues with the library
+  lots of issues with cross-platform Javascript and python interaction
+  ...
+  GUI implemented successfully
+  functions running successfully
+  
+-------------------------------------------------------------
+1) Store the original and it's annotated .tif image in the imToCut folder
+2) Run PreprocessLargeImage.py to cut .tif images into smaller .jpg images and merge them
+3) Move one segment of the merged image and original image from toWeb to main folder
+4) Update the image names in the Script.js
+5) Run SubmitTask.js to upload the images onto Amazon AMT
+6) Let the workers finish the task
+7) Run RetrieveAndApproveResults.js to Retrieve response of HITs (stored in responses.txt)
+8) Run importannotations.py to recreate and save the annotated image into corrected folder
+9) Save all the merged images into combineimages folders
+10) Run PostprocessLargeImage.py to combine all the images from the combineimages folder
+
+
+click preprocessimage
+  choose the .tif original and annotated images in the GUI. 
+  choose submit button -> preprocesslargeiamge.py is run
+
+click crowdsource button
+  select one merged image
+  names of that merged and it's original segment go into Script.js
+  push Script.js, demo.html, style1.css, image1.jpg, image2.jpg
+  [https://medium.com/@meetcpatel906/upload-file-to-azure-blob-storage-using-python-        2bca0d5f4950]
+  run SubmitTask.js and get the url
+
+click Retrieve results
+  checks for hits.txt [*add image name in responses.txt for identification]
+    if hits.txt found: run importannotations.py [*imported image name = image + HITID]
+    if hits.txt not found: run RetrieveAndApproveResults.js
+
+click postprocessimage
+  select 9 images to combine
+  display the large final image  
+
+----------------------------------------------------------------------------------------
+
+# The azure blob does not seem to be working fine when automated
+# Fix RetrieveAndApproveResults.js to retrieve results
+# Try eleminating the 's' eventHandler in javascript file and integrate it into the submit button
+# Create crowdsourcing parameters
+
+-------------------------------------------------------------------------------------
+
+Fixed the eraser size issue
+  does not go beyond 20 pixels and under 5 pixels
+
+
+
+
